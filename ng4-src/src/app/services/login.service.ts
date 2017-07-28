@@ -5,6 +5,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class LoginService {
 
+  token:any;
+  user:any;
+
   constructor(private http:Http) { }
 
   login(username, password) {
@@ -12,5 +15,19 @@ export class LoginService {
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/users/authentication',{username:username, password:password},{headers:headers})
     .map(res =>res.json());
+  }
+
+  //store the token and user
+  storeUserData(token, user) {
+    localStorage.setItem('id_token',token);
+    localStorage.setItem('user',JSON.stringify(user));
+    this.token = token;
+    this.user = user;
+  }
+
+  logout() {
+    this.token = null;
+    this.user = null;
+    localStorage.clear();
   }
 }

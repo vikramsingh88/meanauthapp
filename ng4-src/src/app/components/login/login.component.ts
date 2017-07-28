@@ -26,9 +26,12 @@ export class LoginComponent implements OnInit {
     }
     this.loginService.login(this.username, this.password).subscribe(res => {
       if(res.success){
+        this.loginService.storeUserData(res.token, res.user);
+        this.flashmessage.show('You are now login in', { cssClass: 'alert-success', timeout: 3000 });
         this.router.navigate(['/dashboard']);
       }else{
-        this.flashmessage.show('Username or password incorrect', { cssClass: 'alert-danger', timeout: 3000 });
+        this.flashmessage.show(res.msg, { cssClass: 'alert-danger', timeout: 3000 });
+        this.router.navigate(['/login']);
       }
     });
   }
