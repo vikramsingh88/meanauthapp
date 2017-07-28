@@ -18,4 +18,12 @@ export class ValidateService {
     return regex.test(email);
   }
 
+  validateLogin(userName, password){
+    if(userName==undefined || password==undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 }

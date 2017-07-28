@@ -46,7 +46,7 @@ router.post('/authentication', (req, res) => {
           email:user.email
         }});
       } else {
-        return res.josn({success : false, msg :'wrong password'});
+        return res.json({success : false, msg :'wrong password'});
       }
     });
   });
