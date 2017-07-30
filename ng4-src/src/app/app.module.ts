@@ -18,6 +18,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import {ValidateService} from './services/validate.service';
 import {AuthService} from './services/auth.service';
 import {LoginService} from './services/login.service';
+import {ProfileService} from './services/profile.service';
+
+import {AuthenticationGuard} from './guards/authentication.guard';
 
 const appRoutes : Routes = [
   {
@@ -34,11 +37,13 @@ const appRoutes : Routes = [
   },
   {
     path:'dashboard',
-    component : DashboardComponent
+    component : DashboardComponent,
+    canActivate : [AuthenticationGuard]
   },
   {
     path:'profile',
-    component : ProfileComponent
+    component : ProfileComponent,
+    canActivate : [AuthenticationGuard]
   }
 ];
 
@@ -59,7 +64,7 @@ const appRoutes : Routes = [
     RouterModule.forRoot(appRoutes),
     FlashMessagesModule
   ],
-  providers: [ValidateService,AuthService, LoginService],
+  providers: [ValidateService,AuthService, LoginService, ProfileService, AuthenticationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
